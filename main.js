@@ -13,7 +13,8 @@ app.use(function(req, res, next)
 	console.log(req.method, req.url);
 
 	// ... INSERT HERE.
-	//client.lpush("requests", req.url);
+    //client.lpush("requests", req.url);
+    next();
 });
 
 app.get('/', function(req, res) {
