@@ -1,4 +1,4 @@
-var redis = require('redis')
+//var redis = require('redis')
 var multer  = require('multer')
 var express = require('express')
 var fs      = require('fs')
@@ -6,14 +6,14 @@ var app = express();
 var measure = require('measure');
 var getTimeStamp = measure.measure('timer1');
 // REDIS
-var client = redis.createClient(6379, '127.0.0.1', {})
+//var client = redis.createClient(6379, '127.0.0.1', {})
 
 app.use(function(req, res, next) 
 {
 	console.log(req.method, req.url);
 
 	// ... INSERT HERE.
-	client.lpush("requests", req.url);
+	//client.lpush("requests", req.url);
 });
 
 app.get('/', function(req, res) {
@@ -22,6 +22,10 @@ app.get('/', function(req, res) {
 
 app.get('/get', function(req, res) {
 	{
+        res.writeHead(200, {'content-type':'text/html'});
+        res.write("<h3>Get Request hit.!</h3>");
+        res.end();
+        /*
 		client.get("mykey", function(err, value){
 			client.ttl("mykey", function(err, ttl){
 				if(value != null){
@@ -35,23 +39,27 @@ app.get('/get', function(req, res) {
 					res.end();
 				}
 			})
-		})
+		})*/
 	}
 });
 
 app.get('/set', function(req, res) {
 	{
+        res.writeHead(200, {'content-type':'text/html'});
+        res.write("<h3Set Request hit.!</h3>");
+        res.end();
+        /*
 		client.set("mykey", "10 seconds to live", function(err, value){
 			client.expire("mykey", 10, function(ttl){
 				res.writeHead(200, {'content-type':'text/html'});
 				res.write("<h3>mykey is set</h3>");
 				res.end();
 			})
-		})
+		})*/
 	}
 });
 
-
+/*
 app.get("/recent", function(req, res){
 	client.lrange("requests", 0, 4, function(err, inn_res){
 		if(err){
@@ -87,7 +95,7 @@ app.post('/upload', [multer({ dest: './uploads/'}), function(req, res){
 	}
 	res.status(204).end();
 }]);
-
+*/
 
 app.get('/test', function(req, res){
 	{
